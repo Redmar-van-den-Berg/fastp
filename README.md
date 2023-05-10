@@ -41,6 +41,7 @@ A tool designed to provide fast all-in-one preprocessing for FastQ files. This t
 - [polyX tail trimming](#polyx-tail-trimming)
 - [unique molecular identifier (UMI) processing](#unique-molecular-identifier-umi-processing)
   - [UMI example](#umi-example)
+  - [UMI in separate file](#UMI-in-separate-file-example)
 - [output splitting](#output-splitting)
   - [splitting by limiting file number](#splitting-by-limiting-file-number)
   - [splitting by limiting the lines of each file](#splitting-by-limiting-the-lines-of-each-file)
@@ -316,6 +317,12 @@ GCTACTTGGAGTACCAATAATAAAGTGAGCCCACCTTCCTGGTACCCAGACATTTCAGGAGGTCGGGAAA
 +
 EEE/E/EA/E/AEA6EE//AEE66/AAE//EEE/E//E/AA/EEE/A/AEE/EEA//EEEEEEEE6EEAA
 ```
+## UMI in separate file example
+If the UMI is located in a separate file (R2), you can move it to the header of the R1 file using the following command:
+
+`fastp -i R1.fq -I R3.fq -o R1.out.fq -O R3.out.fq --umi --umi_loc=read2 --umi_len=8 -Q -A -L -w 1`
+
+Afterwards, you can remove the `R1.out.fq` file, since it is no longer needed.
 
 # output splitting
 For parallel processing of FASTQ files (i.e. alignment in parallel), `fastp` supports splitting the output into multiple files. The splitting can work with two different modes: `by limiting file number` or `by limiting lines of each file`. These two modes cannot be enabled together.   
